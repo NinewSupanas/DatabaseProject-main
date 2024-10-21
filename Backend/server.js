@@ -22,19 +22,26 @@ app.use(express.json());
 app.use(cors(corsOptions)); 
 app.options('*', cors(corsOptions)); // ใช้ cors กับตัวเลือกที่กำหนด
 
+const mysql = require('mysql');
+require('dotenv').config(); // โหลดตัวแปรจากไฟล์ .env
+
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '', // ถ้าไม่มีรหัสผ่านให้เว้นว่าง
-    database: 'userdb', // ชื่อฐานข้อมูลของคุณ
-    port: 3308 // พอร์ตที่ใช้เชื่อมต่อ MySQL
+    host: process.env.DB_HOST, // ใช้ค่าจาก .env
+    user: process.env.DB_USER, // ใช้ค่าจาก .env
+    password: process.env.DB_PASS, // ใช้ค่าจาก .env
+    database: process.env.DB_NAME, // ใช้ค่าจาก .env
+    port: process.env.DB_PORT // ใช้ค่าจาก .env
 });
 
-// ตรวจสอบการเชื่อมต่อฐานข้อมูล
+// ตรวจสอบการเชื่อมต่อ
 db.connect((err) => {
-    if (err) throw err;
-    console.log('Connected to MySQL Database');
+    if (err) {
+        console.error('Error connecting to the database:', err);
+        return;
+    }
+    console.log('Connected to the database!');
 });
+
 
 // Middleware สำหรับตรวจสอบสถานะการเข้าสู่ระบบ
 const checkAuth = (req, res, next) => {
