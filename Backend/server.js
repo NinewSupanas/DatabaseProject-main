@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(cors(corsOptions)); 
 app.options('*', cors(corsOptions)); // ใช้ cors กับตัวเลือกที่กำหนด
 
-const mysql = require('mysql');
+
 require('dotenv').config(); // โหลดตัวแปรจากไฟล์ .env
 
 const db = mysql.createConnection({
