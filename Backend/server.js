@@ -7,10 +7,11 @@ const jwt = require('jsonwebtoken'); // สำหรับ JWT
 const multer = require('multer'); // สำหรับการอัปโหลดไฟล์
 const xlsx = require('xlsx'); // สำหรับการอ่านไฟล์ Excel
 const app = express();
+const port = process.env.PORT || 8000;
 
 // กำหนดตัวเลือก CORS
 const corsOptions = {
-    origin: 'http://localhost:5173',
+    origin: '*',
     methods: ['GET', 'POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],  // เพิ่ม Authorization และ Headers ที่จำเป็น
     credentials: true,
